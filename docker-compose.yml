@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    ports:
+      - '8000:8000'
+    environment:
+      - DJANGO_SETTINGS_MODULE=speakify.settings
+      - SECRET_KEY=django-insecure-a#b8jl@^4*0w5n1jrejic5i9xapjgagbt%3ei)#7_)=8dl3pv1
+      - ALLOWED_HOSTS=*
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/speakify
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+    
+  redis:
+    image: redis:6.2.6-alpine
+    ports:
+      - '6379:6379'
+
+  postgres:
+    image: postgres:13.4-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=speakify
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

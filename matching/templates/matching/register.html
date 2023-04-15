@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="width: 100%; display: flex; justify-content: center;">
+    <div
+        style="max-width: 500px; margin-top: 50px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 20px;">
+        <h2 style="font-size: 32px; margin-bottom: 20px;">Register</h2>
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div style="display: grid; gap: 10px;">
+                {% for field in form %}
+                {% if field.name == 'country_code' %}
+                <div style="display: flex;">
+                    <div style="flex: 1;">
+                        <label for="{{ field.auto_id }}"
+                            style="display: block; font-weight: bold;">{{field.label}}</label>
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                    {% elif field.name == 'phone' %}
+                    <div style="flex: 2; margin-left: 10px;">
+                        <label for="{{ field.auto_id }}"
+                            style="display: block; font-weight: bold;">{{field.label}}</label>
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                </div>
+                {% else %}
+                <div>
+                    <label for="{{ field.auto_id }}" style="display: block; font-weight: bold;">{{ field.label}}</label>
+                    {{ field }}
+                    {{ field.errors }}
+                    {% if field.help_text %}
+                    <small style="display: block; font-size: 12px; color: #6c757d;">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <button type="submit"
+                style="background-color: #007bff; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 10px 0; cursor: pointer;">Register</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="login-form"
+    style="width: 300px; margin: 0 auto; background-color: #f0f0f0; border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
+    <h2 style="text-align: center; margin-bottom: 20px;">Login</h2>
+    {% for message in messages %}
+    <p style="color: red; text-align: center;">{{ message }}</p>
+    {% endfor %}
+    <form method="post" style="display: grid; gap: 10px;">
+        {% csrf_token %}
+        <label for="identifier" style="font-weight: bold;">Email or Phone:</label>
+        <input type="text" name="identifier" required style="padding: 5px; border: 1px solid #ccc; border-radius: 3px;">
+        <label for="password" style="font-weight: bold;">Password:</label>
+        <input type="password" name="password" required
+            style="padding: 5px; border: 1px solid #ccc; border-radius: 3px;">
+        <button type="submit"
+            style="background-color: #007bff; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 3px; cursor: pointer;">Login</button>
+    </form>
+</div>
+{% endblock %}
