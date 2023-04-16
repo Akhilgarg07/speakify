@@ -4,9 +4,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
-    && apt-get install -y gcc \
+    && apt-get install -y gcc procps \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
 
 
 WORKDIR /app
@@ -18,5 +19,5 @@ COPY . /app/
 
 EXPOSE 8000
 
-CMD ["hypercorn", "--bind", "0.0.0.0:8000", "speakify.asgi:application  "]
+CMD ["hypercorn", "speakify.asgi:application", "--bind", "0.0.0.0:8000", "--log-level", "debug"]
 

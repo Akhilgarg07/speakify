@@ -28,6 +28,7 @@
 <script>
     const onlineStatusCheckbox = document.getElementById('onlineStatus');
     onlineStatusCheckbox.addEventListener('change', () => {
+        connectBtn.disabled = !onlineStatusCheckbox.checked;
         fetch('{% url "matching:update_online_status" %}', {
             method: 'POST',
             headers: {
@@ -41,6 +42,7 @@
             });
     });
     const connectBtn = document.getElementById('connectBtn');
+    connectBtn.disabled = !onlineStatusCheckbox.checked;
     const chat = document.getElementById('chat');
     const chatLog = document.getElementById('chatLog');
     const chatMessage = document.getElementById('chatMessage');
